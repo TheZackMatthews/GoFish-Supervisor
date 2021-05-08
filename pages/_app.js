@@ -2,6 +2,7 @@ import { Provider } from 'react-redux'
 import { useStore } from '../redux/store'
 import AuthProvider from '../auth'
 import Navbar from '../components/layout/Navbar'
+import Container from '../components/layout/Container'
 import '../styles/global.css'
 
 export default function App({ Component, pageProps }) {
@@ -10,10 +11,9 @@ export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <>
-        <Navbar />
-        <Component {...pageProps} />
-        </>
+        <Container>
+          <Component {...pageProps} />
+        </Container>
       </AuthProvider>
     </Provider>
   )

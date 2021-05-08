@@ -1,0 +1,14 @@
+.userForm {
+  display: inline-block;
+  width: 100%;
+}
+
+.userFormContainer {
+  width: 50%;
+  max-width: 600px;
+  min-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: solid 3px var(--light);
+  border-radius: 10px;
+}

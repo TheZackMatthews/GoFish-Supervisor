@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { firebaseClient } from '../auth/firebaseClient';
+import { useAuth } from '../auth/'
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import TextField from '@material-ui/core/TextField'
 
 const Logout = () => {
   firebaseClient();
   const router = useRouter();
   const [errorM, setErrorM] = useState(null);
-
+  const { user } = useAuth();
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -21,11 +22,16 @@ const Logout = () => {
   }
 
   return (
-    <div>
+    <div className="userFormContainer">
       {errorM && <p>{errorM}</p>}
-      <button type="button" onClick={submitHandler}>
-        Sign out
-      </button>
+      <h1>Log out</h1>
+      {user && <p className="center">You are currently logged in as {user.email}.</p>}
+      <a class="btn btn-1" onClick={submitHandler}>
+      <svg>
+        <rect x="0" y="0" fill="none" width="100%" height="100%"/>
+      </svg>
+     Sign out
+    </a>
     </div>
   )
 }

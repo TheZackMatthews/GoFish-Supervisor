@@ -28,24 +28,29 @@ const Login = () => {
       setErrorM(error.message)
     }
   }
-  console.log(login)
+  
   return (
-    <div>
+    <div className="userFormContainer">
       {errorM && <p>{errorM}</p>}
-      <h1>Log in:</h1>
+      <h1>Log in</h1>
       <form required onSubmit={signInHandler}>
         <TextField
+          className="userForm"
           label="Email"
           name="email"
           onChange={changeHandler} />
         <TextField
+          className="userForm"
           type="password"
           name="password"
           label="Password"
           onChange={changeHandler} />
-          <button type="submit">
+        <a class="btn btn-1" onClick={signInHandler}>
+          <svg>
+            <rect x="0" y="0" fill="none" width="100%" height="100%"/>
+          </svg>
             Log in
-          </button>
+        </a>
       </form>
       <div>No account? <Link href="/signup"><a>Sign up here.</a></Link></div>
     </div>

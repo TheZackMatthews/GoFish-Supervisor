@@ -13,13 +13,17 @@ const Signup = () => {
   const [errorM, setErrorM] = useState(null);
 
   const changeHandler = (e) => {
+    setErrorM('');
     const { target: { name, value }} = e;
     setSignup({ ...signup, [name]: value })
   }
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (signup.password !== signup.confirmPassword) return;
+    if (signup.password !== signup.confirmPassword) {
+      setErrorM('Passwords do not match.')
+      return;
+    }
     const { email, password, name } = signup;
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(data => {
@@ -30,37 +34,44 @@ const Signup = () => {
         setErrorM(error.message);
       })
   }
-  console.log(signup)
 
   return (
-    <div>
+    <div className="userFormContainer">
       {errorM && <p>{errorM}</p>}
+      <h1>Create account</h1>
       <form required onSubmit={submitHandler}>
         <TextField
+          className="userForm"
           label="Full Name"
           name="name"
           autoComplete="false"
           onChange={changeHandler} />
         <TextField
+          className="userForm"
           label="Email"
           name="email"
           type="email"
           autoComplete="false"
           onChange={changeHandler} />
         <TextField
+          className="userForm"
           label="Password"
           name="password"
           type="password"
           autoComplete="new-password"
           onChange={changeHandler} />
         <TextField
+          className="userForm"
           autoComplete="new-password"
           label="Confirm Password"
           name="confirmPassword"
           type="password"
           onChange={changeHandler} />
-        <button type="submit">
-          Create an account
+        <button type="submit" class="btn btn-1" onClick={submitHandler}>
+          <svg>
+            <rect x="0" y="0" fill="none" width="100%" height="100%"/>
+          </svg>
+          Create Account
         </button>
       </form>
     </div>
