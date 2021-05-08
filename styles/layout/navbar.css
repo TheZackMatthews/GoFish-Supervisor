@@ -1,0 +1,32 @@
+.navbar__header {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--primary);
+  color: var(--light)
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar li {
+  list-style-type: none;
+  padding: 0px 10px;
+}
+
+.navbar li:hover {
+  color: var(--accent);
+}
+
+.navbar a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--light);
+}
