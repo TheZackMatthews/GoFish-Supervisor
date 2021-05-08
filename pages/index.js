@@ -1,22 +1,9 @@
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import Link from 'next/link'
-import { startClock } from '../redux/actions/actions'
-import Examples from '../components/examples'
-
 const Index = () => {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(startClock())
-  }, [dispatch])
 
   return (
-    <>
-      <Examples />
-      <Link href="/show-redux-state">
-        <a>Click to see current Redux State</a>
-      </Link>
-    </>
+    <div>
+      <h1>Welcome to the Go Fish Dashboard for supervisors.</h1>
+    </div>
   )
 }
 
