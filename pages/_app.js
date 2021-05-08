@@ -1,5 +1,7 @@
 import { Provider } from 'react-redux'
 import { useStore } from '../redux/store'
+import AuthProvider from '../auth'
+import Navbar from '../components/layout/Navbar'
 import '../styles/global.css'
 
 export default function App({ Component, pageProps }) {
@@ -7,7 +9,12 @@ export default function App({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <>
+        <Navbar />
+        <Component {...pageProps} />
+        </>
+      </AuthProvider>
     </Provider>
   )
 }

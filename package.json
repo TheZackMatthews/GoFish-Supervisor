@@ -15,5 +15,10 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "firebase": "^8.5.0",
+    "firebase-admin": "^9.7.0",
+    "nookies": "^2.5.2"
+  }
 }
