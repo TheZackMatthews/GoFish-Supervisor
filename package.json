@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
-    "next": "latest",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "axios": "^0.21.1",
+    "json-2-csv": "^3.11.1",
+    "next": "^10.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^16.14.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
@@ -18,8 +20,15 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "firebase": "^8.5.0",
     "firebase-admin": "^9.7.0",
-    "nookies": "^2.5.2"
+    "nookies": "^2.5.2",
+    "prettier-eslint": "^12.0.0"
   }
 }
