@@ -23,6 +23,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .expo
+.next
 
 # vim
 *.swp
