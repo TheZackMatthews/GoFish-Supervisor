@@ -4,53 +4,73 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { fetchAllSurveys } from '../redux/actions/reportActions';
-import TableFromJSON from '../components/TableFromJSON';
+import TableFromJSON from '../components/reports/TableFromJSON';
+import SimpleSelect from '../components/reports/SimpleSelect';
 
 const exportTable = (data) => {
-  const out = json2csv(data, (err, csv) => {
+  json2csv(data, (err, csv) => {
     if (err) alert('Problem exporting', err);
-    else return console.log(csv);
+    else return csv;
   });
 };
 
 const Reports = () => {
   const dispatch = useDispatch();
-  const [reportData, setReportData] = useState({ allSurveys: [] });
+  const [reportType, setReportType] = useState('');
+  const [reportData, setReportData] = useState([]);
+  const [reportCSV, setReportCSV] = useState();
   /* eslint-disable no-unused-expressions */
+
   useEffect(() => {
-    if (!reportData.allSurveys.length) fetchAll();
-  }),
-  [reportData];
+    switch (reportType) {
+      case 'All Surveys':
+        fetchAll();
+        break;
+      case 'Fish Summary':
+        fetchAll();
+        break;
+      case 'Volunteer Summary':
+        setReportData([]);
+        break;
+      default:
+    }
+  }, [reportType]);
   /* eslint-enable no-unused-expressions */
 
   const fetchAll = async () => {
     const result = await dispatch(fetchAllSurveys());
     if (result && result.payload) {
-      setReportData({ allSurveys: result.payload.data.data });
+      setReportData(result.payload.data);
     }
+  };
+
+  const handleDropdownChange = (event) => {
+    console.log(event.target.value);
+    setReportType(event.target.value);
   };
 
   console.log('reportdata', reportData);
 
-  return reportData.allSurveys.length ? (
+  return (
     <>
       <div>
         <h1>Welcome to the Go Fish reports.</h1>
       </div>
-      <TableFromJSON data={reportData.allSurveys} />
-      <Button
-        variant="contained"
-        color="default"
-        id="exportTable"
-        onClick={() => {
-          exportTable(reportData.allSurveys);
-        }}
-      >
-        Export Table
-      </Button>
+      <SimpleSelect handleChange={handleDropdownChange} itemValue={reportType} />
+      <div>
+        <TableFromJSON data={reportData} title={reportType} />
+        <Button
+          variant="contained"
+          color="default"
+          id="exportTable"
+          onClick={() => {
+            exportTable(reportData);
+          }}
+        >
+          Export Table
+        </Button>
+      </div>
     </>
-  ) : (
-    <div>Loading...</div>
   );
 };
 
