@@ -7,10 +7,23 @@ import { fetchAllSurveys } from '../redux/actions/reportActions';
 import TableFromJSON from '../components/reports/TableFromJSON';
 import SimpleSelect from '../components/reports/SimpleSelect';
 
-const exportTable = (data) => {
+const exportTable = (data, title) => {
+  // handles all errors in the block
   json2csv(data, (err, csv) => {
-    if (err) alert('Problem exporting', err);
-    else return csv;
+    if (err) {
+      alert('Problem exporting');
+      console.log(err);
+    } else {
+      console.log(typeof csv);
+      const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const objectURL = URL.createObjectURL(csvBlob);
+      const anchor = document.createElement('a');
+      anchor.href = objectURL;
+      anchor.target = '_blank';
+      anchor.download = `${title}.csv`;
+      anchor.click();
+      URL.revokeObjectURL(objectURL);
+    }
   });
 };
 
@@ -64,7 +77,8 @@ const Reports = () => {
           color="default"
           id="exportTable"
           onClick={() => {
-            exportTable(reportData);
+            const reportTitle = JSON.stringify(reportType);
+            exportTable(reportData, reportType);
           }}
         >
           Export Table

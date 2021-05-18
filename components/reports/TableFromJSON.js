@@ -7,17 +7,20 @@ const TableFromJSON = (props) => {
   let header;
   let rows;
   let table;
-  console.log('data', data);
-  // remove id and any other unnecessary columns
+  // removes id and any other unnecessary columns
   if (data.length) {
     data = data.map(({
       id, group_id, location, what_ever, ...rest
     }) => rest);
 
-    header = Object.keys(data[0]).map((col, idx) => <th key={idx}>{col}</th>);
-    console.log('header', header);
-    rows = data.map((row) => Object.values(row).map((cell) => <td key={row.id}>{cell}</td>));
-    table = rows.map((row, idx) => <tr key={idx + 1}>{row}</tr>);
+    // creates table elements
+    try {
+      header = Object.keys(data[0]).map((col, idx) => <th key={idx}>{col}</th>);
+      rows = data.map((row) => Object.values(row).map((cell) => <td key={row.id}>{cell}</td>));
+      table = rows.map((row, idx) => <tr key={idx + 1}>{row}</tr>);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return header ? (
