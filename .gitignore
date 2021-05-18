@@ -1,5 +1,6 @@
 /vendor/
 **/node_modules
+node_modules/
 npm-debug.log
 yarn-error.log
 
@@ -22,6 +23,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .expo
+.next
 
 # vim
 *.swp
