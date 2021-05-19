@@ -2,12 +2,13 @@
 @import "./layout";
 @import "./utility";
 @import "./components";
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
 
 :root {
-  --primary: #254e58;
-  --secondary: #4f4a41;
-  --light: #88bdbc;
-  --dark: #112d32;
+  --primary: rgb(88,126,77);
+  --secondary: rgb(198,204,160);
+  --light: rgb(150,175,219);
+  --dark: rgb(49,79,44);
   --accent: #6e6658;
 }
 
@@ -19,7 +20,10 @@
 
 body,
 html {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Arvo", sans-serif;
+  padding-left: 10%;
+  height: 1000px;
+  background-image: linear-gradient(var(--secondary), var(--primary));
 }
 
 a {
@@ -32,3 +36,27 @@ a {
   text-align: center;
 }
 
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 10px 0 0;
+}
+
+form  button{
+  padding:5px;
+  border-radius: 3px;
+  border-width: 1px;
+}
+form  input{
+  padding:5px;
+  border-radius: 3px;
+  border-width:1px;
+  
+}
+
+ul a {
+  display: flex;
+  align-items: center;
+}
