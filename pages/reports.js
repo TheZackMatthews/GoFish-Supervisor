@@ -77,7 +77,6 @@ const Reports = () => {
           color="default"
           id="exportTable"
           onClick={() => {
-            const reportTitle = JSON.stringify(reportType);
             exportTable(reportData, reportType);
           }}
         >
