@@ -14,7 +14,7 @@ const exportTable = (data, title) => {
       alert('Problem exporting');
       console.log(err);
     } else {
-      console.log(typeof csv);
+      console.log(csv);
       const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const objectURL = URL.createObjectURL(csvBlob);
       const anchor = document.createElement('a');
@@ -27,7 +27,7 @@ const exportTable = (data, title) => {
   });
 };
 
-const Reports = () => {
+const FieldWorkers = () => {
   const dispatch = useDispatch();
   const [reportType, setReportType] = useState('');
   const [reportData, setReportData] = useState([]);
@@ -62,6 +62,10 @@ const Reports = () => {
     setReportType(event.target.value);
   };
 
+  const handleSearch = (event) => {
+    console.log(event.target.event);
+  };
+
   console.log('reportdata', reportData);
 
   return (
@@ -69,28 +73,27 @@ const Reports = () => {
       <div>
         <h1>Welcome to the Go Fish reports.</h1>
       </div>
-      <div className="top">
-        <SimpleSelect handleChange={handleDropdownChange} itemValue={reportType} />
-        <form>
-          <input id="name" type="text" autoComplete="name" />
-          <button type="submit">Search</button>
-        </form>
-      </div>
+      <SimpleSelect handleChange={handleDropdownChange} itemValue={reportType} />
+      <form>
+        <input id="name" type="text" autoComplete="name" handleChange={handleSearch}/>
+        <button type="submit">Search</button>
+      </form>
       <div>
+        <TableFromJSON data={reportData} title={reportType} />
         <Button
           variant="contained"
-          // color= "var(--dark)"
+          color="default"
           id="exportTable"
           onClick={() => {
+            const reportTitle = JSON.stringify(reportType);
             exportTable(reportData, reportType);
           }}
         >
           Export Table
         </Button>
-        <TableFromJSON data={reportData} title={reportType} />
       </div>
     </>
   );
 };
 
-export default Reports;
+export default FieldWorkers;

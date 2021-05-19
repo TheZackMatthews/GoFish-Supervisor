@@ -1,24 +1,40 @@
 .navbar__header {
+  display: flex;
   font-size: 1.3rem;
   font-weight: 700;
+  flex-direction: column;
+  position: relative;
+  bottom: 60px;
 }
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  padding: 10px 15px;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width:250px;
+  height: 100%;
+  align-items: center;
+  padding: 25px;
   background-color: var(--primary);
-  color: var(--light)
+  color: var(--light);
+  border-radius: 0  50px 0 0;
 }
 
 .navbar ul {
   display: flex;
+  flex-direction: column;
 }
 
 .navbar li {
   list-style-type: none;
-  padding: 0px 10px;
+  padding: 10px 10px;
+  display: flex;
+  
+  
 }
 
 .navbar li:hover {
@@ -29,4 +45,5 @@
   text-decoration: none;
   font-weight: 500;
   color: var(--light);
+  
 }
