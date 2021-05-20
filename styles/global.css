@@ -9,7 +9,8 @@
   --secondary: rgb(198,204,160);
   --light: rgb(150,175,219);
   --dark: rgb(49,79,44);
-  --accent: #6e6658;
+  --accent: rgb(145, 186, 120);
+  --accent2: rgb(57,78,125);
 }
 
 * {
@@ -22,8 +23,10 @@ body,
 html {
   font-family: "Arvo", sans-serif;
   padding-left: 10%;
-  height: 1000px;
+  min-height:800px;
+  height: fit-content;
   background-image: linear-gradient(var(--secondary), var(--primary));
+  color:var(--accent2)
 }
 
 a {
