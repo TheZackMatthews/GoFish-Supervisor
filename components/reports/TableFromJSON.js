@@ -7,6 +7,16 @@ const TableFromJSON = (props) => {
   let header;
   let rows;
   let table;
+
+  function toCapitalizedWords(name) {
+    const words = name.match(/[A-Za-z][a-z]*/g) || [];
+
+    return words.map(capitalize).join(' ');
+  }
+
+  function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.substring(1);
+  }
   // removes id and any other unnecessary columns
   if (data.length) {
     data = data.map(({
@@ -15,7 +25,7 @@ const TableFromJSON = (props) => {
 
     // creates table elements
     try {
-      header = Object.keys(data[0]).map((col, idx) => <th key={idx}>{col}</th>);
+      header = Object.keys(data[0]).map((col, idx) => <th key={idx}>{toCapitalizedWords(col)}</th>);
       rows = data.map((row) => Object.values(row).map((cell) => <td key={row.id}>{cell}</td>));
       table = rows.map((row, idx) => <tr key={idx + 1}>{row}</tr>);
     } catch (err) {

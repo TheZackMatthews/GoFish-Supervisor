@@ -52,8 +52,13 @@ const FieldWorkers = () => {
 
   const fetchAll = async () => {
     const result = await dispatch(fetchAllSurveys());
+
     if (result && result.payload) {
-      setReportData(result.payload.data);
+      setReportData(result.payload.data.map((elem) => {
+        const createDate = new Intl.DateTimeFormat('en-US').format(new Date(elem.created_at));
+        const updateDate = new Intl.DateTimeFormat('en-US').format(new Date(elem.updated_at));
+        return { ...elem, created_at: createDate, updated_at: updateDate };
+      }));
     }
   };
 
@@ -63,7 +68,8 @@ const FieldWorkers = () => {
   };
 
   const handleSearch = (event) => {
-    console.log(event.target.event);
+    event.preventDefault();
+    console.log(event.target.value);
   };
 
   console.log('reportdata', reportData);
@@ -75,7 +81,7 @@ const FieldWorkers = () => {
       </div>
       <SimpleSelect handleChange={handleDropdownChange} itemValue={reportType} />
       <form>
-        <input id="name" type="text" autoComplete="name" handleChange={handleSearch}/>
+        <input id="name" type="text" autoComplete="name" handleChange={handleSearch} />
         <button type="submit">Search</button>
       </form>
       <div>
