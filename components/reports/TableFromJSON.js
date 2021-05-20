@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const TableFromJSON = (props) => {
   const [tableReady, setTableReady] = useState(null);
   let { data } = props;
-  const { title } = props;
+  const { show, title } = props;
   let header;
   let rows;
   let table;
@@ -33,7 +33,7 @@ const TableFromJSON = (props) => {
     }
   }
 
-  return header ? (
+  return header && !show ? (
     <div>
       <h1 className="data-table-title">{title}</h1>
       <table className="data-table">
