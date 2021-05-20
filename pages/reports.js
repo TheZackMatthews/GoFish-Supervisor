@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { fetchAllSurveys } from '../redux/actions/reportActions';
 import TableFromJSON from '../components/reports/TableFromJSON';
 import SimpleSelect from '../components/reports/SimpleSelect';
+import Image from 'next/image';
 
 const exportTable = (data, title) => {
   // handles all errors in the block
@@ -53,7 +54,11 @@ const Reports = () => {
   const fetchAll = async () => {
     const result = await dispatch(fetchAllSurveys());
     if (result && result.payload) {
-      setReportData(result.payload.data);
+      setReportData(result.payload.data.map((elem) => {
+        const createDate = new Intl.DateTimeFormat('en-US').format(new Date(elem.created_at));
+        const updateDate = new Intl.DateTimeFormat('en-US').format(new Date(elem.updated_at));
+        return { ...elem, created_at: createDate, updated_at: updateDate };
+      }));
     }
   };
 
