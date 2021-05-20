@@ -1,4 +1,4 @@
-import axios from 'axios';
+import dynamic from 'next/dynamic';
 import { json2csv } from 'json-2-csv';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
@@ -7,6 +7,9 @@ import { fetchAllSurveys } from '../redux/actions/reportActions';
 import TableFromJSON from '../components/reports/TableFromJSON';
 import SimpleSelect from '../components/reports/SimpleSelect';
 
+// map needs window object before nextjs compiles
+const DataPointMap = dynamic(() => import('../components/maps/DataPointMap'), { ssr: false });
+console.log(typeof DataPointMap);
 const exportTable = (data, title) => {
   // handles all errors in the block
   json2csv(data, (err, csv) => {
@@ -32,6 +35,8 @@ const Reports = () => {
   const [reportType, setReportType] = useState('');
   const [reportData, setReportData] = useState([]);
   const [reportCSV, setReportCSV] = useState();
+  const [showMap, setShowMap] = useState(false);
+  const [mapButtonText, setMapButtonText] = useState('Show Map');
   /* eslint-disable no-unused-expressions */
 
   useEffect(() => {
@@ -62,7 +67,12 @@ const Reports = () => {
     setReportType(event.target.value);
   };
 
-  console.log('reportdata', reportData);
+  const toggleMap = () => {
+    setShowMap(!showMap);
+    if (showMap) setMapButtonText('Show Map');
+    else setMapButtonText('Hide Map');
+  };
+  console.log(mapButtonText);
 
   return (
     <>
@@ -87,7 +97,24 @@ const Reports = () => {
         >
           Export Table
         </Button>
-        <TableFromJSON data={reportData} title={reportType} />
+        <Button
+          variant="contained"
+          // color= "var(--dark)"
+          id="mapData"
+          onClick={() => toggleMap()}
+        >
+          {mapButtonText}
+        </Button>
+        <div
+          style={{
+            position: 'absolute',
+            width: '70%',
+            height: '600px',
+          }}
+        >
+          <DataPointMap data={reportData} show={showMap} />
+          <TableFromJSON data={reportData} title={reportType} show={showMap} />
+        </div>
       </div>
     </>
   );
