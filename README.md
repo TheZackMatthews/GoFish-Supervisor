@@ -1,7 +1,6 @@
 # Go Fish Supervisor App
 
-This is the app that the supervisors will use to see the data accumulated from the field workers. They can also make assignments here and make changes to the user database.
+This application currently supports viewing the data that fieldworkers have submitted on the mobile client. More features are in the pipeline for entering volunteer data and editing data that has been submitted.
 
-## Currently completed:
-- Authorization set up with firebase
-- Redux and thunk set up with redux dev tools
+For further information, please refer to https://github.com/TheZackMatthews/GoFish-Client
+
