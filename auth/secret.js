@@ -5,6 +5,6 @@ const FB_CONFIG = {
   storageBucket: process.env.FB_storageBucket,
   messegingSenderId: process.env.FB_messagingSenderId,
   appId: process.env.FB_appId,
-}
+};
 
-export default FB_CONFIG
+export default FB_CONFIG;

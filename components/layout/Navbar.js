@@ -34,7 +34,7 @@ const Navbar = () => {
             </Link>
           )}
           {user && (
-            <Link href="/fieldWorkers">
+            <Link href="/">
               <a>
                 <ContactsIcon />
                 <li>Field Workers</li>

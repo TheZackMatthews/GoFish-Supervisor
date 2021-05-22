@@ -23,8 +23,8 @@ body,
 html {
   font-family: "Arvo", sans-serif;
   padding-left: 10%;
-  min-height:800px;
-  height: fit-content;
+  height: auto;
+  min-height:1000px;
   background-image: linear-gradient(var(--secondary), var(--primary));
   color:var(--accent2)
 }

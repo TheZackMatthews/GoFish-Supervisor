@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tooltip, Map, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import { Tooltip, Map, TileLayer, CircleMarker } from 'react-leaflet';
 import { attribution, tileUrl, defaultMapState } from './utils/Utils';
 import 'leaflet/dist/leaflet.css';
 
@@ -47,7 +47,7 @@ export default class DataPointMap extends Component {
               </CircleMarker>
             );
         })}
-        )}
+        )
       </Map>
     ) : (
       <div></div>

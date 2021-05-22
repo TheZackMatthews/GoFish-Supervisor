@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import dynamic from 'next/dynamic';
 import { json2csv } from 'json-2-csv';
 import React, { useState, useEffect } from 'react';
@@ -7,17 +8,15 @@ import { fetchAllSurveys } from '../redux/actions/reportActions';
 import TableFromJSON from '../components/reports/TableFromJSON';
 import SimpleSelect from '../components/reports/SimpleSelect';
 
-// map needs window object before nextjs compiles
 const DataPointMap = dynamic(() => import('../components/maps/DataPointMap'), { ssr: false });
-console.log(typeof DataPointMap);
 const exportTable = (data, title) => {
-  // handles all errors in the block
   json2csv(data, (err, csv) => {
     if (err) {
+      // eslint-disable-next-line no-alert
       alert('Problem exporting');
-      console.log(err);
+      // eslint-disable-next-line no-console
+      console.error(err);
     } else {
-      console.log(typeof csv);
       const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const objectURL = URL.createObjectURL(csvBlob);
       const anchor = document.createElement('a');
@@ -34,10 +33,8 @@ const Reports = () => {
   const dispatch = useDispatch();
   const [reportType, setReportType] = useState('');
   const [reportData, setReportData] = useState([]);
-  const [reportCSV, setReportCSV] = useState();
   const [showMap, setShowMap] = useState(false);
   const [mapButtonText, setMapButtonText] = useState('Show Map');
-  /* eslint-disable no-unused-expressions */
 
   useEffect(() => {
     switch (reportType) {
@@ -53,7 +50,6 @@ const Reports = () => {
       default:
     }
   }, [reportType]);
-  /* eslint-enable no-unused-expressions */
 
   const fetchAll = async () => {
     const result = await dispatch(fetchAllSurveys());
@@ -63,7 +59,6 @@ const Reports = () => {
   };
 
   const handleDropdownChange = (event) => {
-    console.log(event.target.value);
     setReportType(event.target.value);
   };
 
@@ -72,7 +67,6 @@ const Reports = () => {
     if (showMap) setMapButtonText('Show Map');
     else setMapButtonText('Hide Map');
   };
-  console.log(mapButtonText);
 
   return (
     <>
@@ -89,7 +83,6 @@ const Reports = () => {
       <div>
         <Button
           variant="contained"
-          // color= "var(--dark)"
           id="exportTable"
           onClick={() => {
             exportTable(reportData, reportType);
@@ -98,12 +91,7 @@ const Reports = () => {
           Export Table
         </Button>
         {'  '}
-        <Button
-          variant="contained"
-          // color= "var(--dark)"
-          id="mapData"
-          onClick={() => toggleMap()}
-        >
+        <Button variant="contained" id="mapData" onClick={() => toggleMap()}>
           {mapButtonText}
         </Button>
         <div
