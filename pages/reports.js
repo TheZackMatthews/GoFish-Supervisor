@@ -1,56 +1,111 @@
-import axios from 'axios';
+/* eslint-disable no-use-before-define */
+import dynamic from 'next/dynamic';
 import { json2csv } from 'json-2-csv';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { fetchAllSurveys } from '../redux/actions/reportActions';
-import TableFromJSON from '../components/TableFromJSON';
+import TableFromJSON from '../components/reports/TableFromJSON';
+import SimpleSelect from '../components/reports/SimpleSelect';
 
-const exportTable = (data) => {
-  const out = json2csv(data, (err, csv) => {
-    if (err) alert('Problem exporting', err);
-    else return console.log(csv);
+const DataPointMap = dynamic(() => import('../components/maps/DataPointMap'), { ssr: false });
+const exportTable = (data, title) => {
+  json2csv(data, (err, csv) => {
+    if (err) {
+      // eslint-disable-next-line no-alert
+      alert('Problem exporting');
+      // eslint-disable-next-line no-console
+      console.error(err);
+    } else {
+      const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const objectURL = URL.createObjectURL(csvBlob);
+      const anchor = document.createElement('a');
+      anchor.href = objectURL;
+      anchor.target = '_blank';
+      anchor.download = `${title}.csv`;
+      anchor.click();
+      URL.revokeObjectURL(objectURL);
+    }
   });
 };
 
 const Reports = () => {
   const dispatch = useDispatch();
-  const [reportData, setReportData] = useState({ allSurveys: [] });
-  /* eslint-disable no-unused-expressions */
+  const [reportType, setReportType] = useState('');
+  const [reportData, setReportData] = useState([]);
+  const [showMap, setShowMap] = useState(false);
+  const [mapButtonText, setMapButtonText] = useState('Show Map');
+
   useEffect(() => {
-    if (!reportData.allSurveys.length) fetchAll();
-  }),
-  [reportData];
-  /* eslint-enable no-unused-expressions */
+    switch (reportType) {
+      case 'All Surveys':
+        fetchAll();
+        break;
+      case 'Fish Summary':
+        fetchAll();
+        break;
+      case 'Volunteer Summary':
+        setReportData([]);
+        break;
+      default:
+    }
+  }, [reportType]);
 
   const fetchAll = async () => {
     const result = await dispatch(fetchAllSurveys());
     if (result && result.payload) {
-      setReportData({ allSurveys: result.payload.data.data });
+      setReportData(result.payload.data);
     }
   };
 
-  console.log('reportdata', reportData);
+  const handleDropdownChange = (event) => {
+    setReportType(event.target.value);
+  };
 
-  return reportData.allSurveys.length ? (
+  const toggleMap = () => {
+    setShowMap(!showMap);
+    if (showMap) setMapButtonText('Show Map');
+    else setMapButtonText('Hide Map');
+  };
+
+  return (
     <>
       <div>
         <h1>Welcome to the Go Fish reports.</h1>
       </div>
-      <TableFromJSON data={reportData.allSurveys} />
-      <Button
-        variant="contained"
-        color="default"
-        id="exportTable"
-        onClick={() => {
-          exportTable(reportData.allSurveys);
-        }}
-      >
-        Export Table
-      </Button>
+      <div className="top">
+        <SimpleSelect handleChange={handleDropdownChange} itemValue={reportType} />
+        <form>
+          <input id="name" type="text" autoComplete="name" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <div>
+        <Button
+          variant="contained"
+          id="exportTable"
+          onClick={() => {
+            exportTable(reportData, reportType);
+          }}
+        >
+          Export Table
+        </Button>
+        {'  '}
+        <Button variant="contained" id="mapData" onClick={() => toggleMap()}>
+          {mapButtonText}
+        </Button>
+        <div
+          style={{
+            position: 'absolute',
+            width: '70%',
+            height: '600px',
+          }}
+        >
+          <DataPointMap data={reportData} show={showMap} />
+          <TableFromJSON data={reportData} title={reportType} show={showMap} />
+        </div>
+      </div>
     </>
-  ) : (
-    <div>Loading...</div>
   );
 };
 

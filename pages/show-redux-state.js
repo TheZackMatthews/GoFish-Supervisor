@@ -1,5 +1,7 @@
-import { useSelector } from 'react-redux'
-import Link from 'next/link'
+/* eslint-disable no-shadow */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useSelector } from 'react-redux';
+import Link from 'next/link';
 
 const codeStyle = {
   background: '#ebebeb',
@@ -7,10 +9,10 @@ const codeStyle = {
   padding: 10,
   border: '1px solid grey',
   marginBottom: 10,
-}
+};
 
 const ShowReduxState = () => {
-  const state = useSelector((state) => state)
+  const state = useSelector((state) => state);
 
   return (
     <>
@@ -21,7 +23,7 @@ const ShowReduxState = () => {
         <a>Go Back Home</a>
       </Link>
     </>
-  )
-}
+  );
+};
 
-export default ShowReduxState
+export default ShowReduxState;
