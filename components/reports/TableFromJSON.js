@@ -28,7 +28,7 @@ const TableFromJSON = (props) => {
       rows = data.map((row) => Object.values(row).map((cell) => <td key={row.id}>{cell}</td>));
       table = rows.map((row, idx) => <tr key={idx + 1}>{row}</tr>);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

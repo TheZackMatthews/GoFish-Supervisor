@@ -1,8 +1,8 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Provider } from 'react-redux';
 import { useStore } from '../redux/store';
 import AuthProvider from '../auth';
-import Navbar from '../components/layout/Navbar';
 import Container from '../components/layout/Container';
 import '../styles/global.css';
 
