@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  MapContainer, TileLayer, Popup, GeoJSON, ZoomControl,
+  MapContainer, TileLayer, ZoomControl,
 } from 'react-leaflet';
 // import 'leaflet/dist/leaflet.css';
 // import Legend from "./Legend";
@@ -8,7 +8,6 @@ import {
 const attribution = '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 
 const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-// 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
 
 const defaultMapState = {
   lat: 40.697149,
@@ -26,8 +25,6 @@ const defaultMapState = {
 
 const DataPointMap = () => {
   const [isLoaded, setIsLoaded] = useState();
-  const [items, setItems] = useState();
-
   useEffect(() => {
     setIsLoaded(true);
   }, []);

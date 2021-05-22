@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const TableFromJSON = (props) => {
-  const [tableReady, setTableReady] = useState(null);
   let { data } = props;
   const { show, title } = props;
   let header;
