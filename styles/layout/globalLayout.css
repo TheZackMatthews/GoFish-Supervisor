@@ -1,3 +1,10 @@
 .container {
-  margin: 20px;
+  display: flex;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.childContainer {
+  padding: 20px;
+  height: 100%;
 }

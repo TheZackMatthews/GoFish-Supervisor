@@ -3,7 +3,9 @@ import axios from 'axios';
 import { FETCH_ALL_SURVEYS } from './actionTypes';
 
 const urlFetchAll = 'https://gofish-api.herokuapp.com/getAllSurveys';
+// const urlUser = 'http://localhost:3001/user';
 // const urlFetchAll = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+
 export const fetchAllSurveys = () => (dispatch) => {
   console.log('fetching all surveys');
   return axios
@@ -25,3 +27,11 @@ export const fetchAllSurveys = () => (dispatch) => {
       }
     });
 };
+
+// export const getUsers = () => dispatch => {
+//   return axios.get(urlUser)
+//     .then((res) => {
+//       console.log(res);
+//     })
+
+// }

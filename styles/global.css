@@ -5,7 +5,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
 
 :root {
-  --primary: rgb(88,126,77);
+  /* --primary: rgb(88,126,77); */
+  --primary: rgb(57,78,125);
   --secondary: rgb(198,204,160);
   --light: rgb(150,175,219);
   --dark: rgb(49,79,44);
@@ -21,11 +22,8 @@
 
 body,
 html {
-  font-family: "Arvo", sans-serif;
-  padding-left: 10%;
-  height: auto;
-  min-height:1000px;
-  background-image: linear-gradient(var(--secondary), var(--primary));
+  font-family: "Montserrat", sans-serif;
+  height: 100%;
   color:var(--accent2)
 }
 

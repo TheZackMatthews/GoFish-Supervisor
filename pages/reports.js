@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { json2csv } from 'json-2-csv';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllSurveys } from '../redux/actions/reportActions';
 import TableFromJSON from '../components/reports/TableFromJSON';
 import SimpleSelect from '../components/reports/SimpleSelect';
@@ -31,15 +31,24 @@ const exportTable = (data, title) => {
 
 const Reports = () => {
   const dispatch = useDispatch();
+  const surveys = useSelector((state) => state.reports);
   const [reportType, setReportType] = useState('');
   const [reportData, setReportData] = useState([]);
   const [showMap, setShowMap] = useState(false);
   const [mapButtonText, setMapButtonText] = useState('Show Map');
+  const [divStyle, setDivStyle] = useState({
+    position: 'absolute',
+    width: '70%',
+  });
 
   useEffect(() => {
     switch (reportType) {
       case 'All Surveys':
-        fetchAll();
+        if (surveys.allSurveys) {
+          setReportData(surveys.allSurveys);
+        } else {
+          fetchAll();
+        }
         break;
       case 'Fish Summary':
         fetchAll();
@@ -64,8 +73,20 @@ const Reports = () => {
 
   const toggleMap = () => {
     setShowMap(!showMap);
-    if (showMap) setMapButtonText('Show Map');
-    else setMapButtonText('Hide Map');
+    if (showMap) {
+      setMapButtonText('Show Map');
+      setDivStyle({
+        position: 'absolute',
+        width: '70%',
+      });
+    } else {
+      setDivStyle({
+        ...divStyle,
+        height: '70%',
+        marginBottom: 30,
+      });
+      setMapButtonText('Hide Map');
+    }
   };
 
   return (
@@ -95,11 +116,7 @@ const Reports = () => {
           {mapButtonText}
         </Button>
         <div
-          style={{
-            position: 'absolute',
-            width: '70%',
-            height: '600px',
-          }}
+          style={divStyle}
         >
           <DataPointMap data={reportData} show={showMap} />
           <TableFromJSON data={reportData} title={reportType} show={showMap} />

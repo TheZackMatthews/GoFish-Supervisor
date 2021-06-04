@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,63 +16,96 @@ const Navbar = () => {
     <nav>
       <div className="navbar">
         <div className="navbar__header">
-          <Image
-            src="/deneme.png"
-            alt="Logo"
-            width={80}
-            height={100}
-          />
+          <Link href="/">
+            <a>
+              <Image
+                src="/deneme.png"
+                alt="Logo"
+                width={80}
+                height={100}
+              />
+            </a>
+          </Link>
           <div>Go Fish</div>
           <br />
         </div>
-        <ul>
-          {user && (
+        <div>
+          <h3>Reports</h3>
+          <ul>
+            {user && (
             <Link href="/reports">
               <a>
                 <AssignmentIcon />
                 <li>Reports</li>
               </a>
             </Link>
-          )}
-          {user && (
+            )}
+            {user && (
             <Link href="/">
               <a>
                 <ContactsIcon />
                 <li>Field Workers</li>
               </a>
             </Link>
-          )}
-          {user && (
+            )}
+            {user && (
+            <Link href="/photos">
+              <a>
+                <WorkIcon />
+                <li>Photos</li>
+              </a>
+            </Link>
+            )}
+          </ul>
+        </div>
+        <div>
+          <br />
+          <h3>Edit Surveys</h3>
+          <ul>
+            {user && (
+              <Link href="/newQues">
+                <a>
+                  <AssessmentIcon />
+                  <li>New survey</li>
+                </a>
+              </Link>
+            )}
+            {user && (
             <Link href="/">
               <a>
                 <WorkIcon />
                 <li>Projects</li>
               </a>
             </Link>
-          )}
-          {user && (
-            <Link href="/">
-              <a>
-                <AssessmentIcon />
-                <li>Org Profile</li>
-              </a>
-            </Link>
-          )}
-          {user ? (
-            <Link href="/logout">
-              <a>
-                <ExitToAppIcon />
-                <li>Log Out</li>
-              </a>
-            </Link>
-          ) : (
-            <Link href="/login">
-              <a>
-                <li>Log In</li>
-              </a>
-            </Link>
-          )}
-        </ul>
+            )}
+          </ul>
+          <br />
+          <h3>Admin</h3>
+          <ul>
+            {user && (
+              <Link href="/">
+                <a>
+                  <AssessmentIcon />
+                  <li>Org Profile</li>
+                </a>
+              </Link>
+            )}
+            {user ? (
+              <Link href="/logout">
+                <a>
+                  <ExitToAppIcon />
+                  <li>Log Out</li>
+                </a>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <a>
+                  <li>Log In</li>
+                </a>
+              </Link>
+            )}
+          </ul>
+        </div>
       </div>
     </nav>
   );

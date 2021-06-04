@@ -1,5 +1,5 @@
 {
-  "name": "with-redux-thunk",
+  "name": "go-fish-supervisor-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
@@ -12,12 +12,18 @@
     "axios": "^0.21.1",
     "json-2-csv": "^3.11.1",
     "leaflet": "^1.6.0",
-    "next": "^10.2.0",
+    "next": "^10.2.3",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
+    "react-circle": "^1.1.1",
     "react-dom": "^16.14.0",
+    "react-google-charts": "^3.0.15",
+    "react-images": "^1.2.0-beta.7",
     "react-leaflet": "^2.6.3",
     "react-leaflet-universal": "^2.1.0",
+    "react-photo-gallery": "^8.0.0",
     "react-redux": "^7.1.0",
+    "react-sortable-tree": "^2.8.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
