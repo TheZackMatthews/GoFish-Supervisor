@@ -2,6 +2,7 @@ import React from 'react';
 import Chart from 'react-google-charts';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { Card } from '@material-ui/core';
 import { fetchAllSurveys } from '../../redux/actions/reportActions';
 
 const Pie = ({ data, count }) => {
@@ -33,8 +34,8 @@ const Pie = ({ data, count }) => {
   }, [reports]);
 
   return (
-    <>
-      <div style={{ display: 'flex', maxWidth: 'min-content' }}>
+    <Card style={{ margin: 'auto' }}>
+      <div>
         <Chart
           chartType="PieChart"
           loader={<div>Loading Chart</div>}
@@ -52,10 +53,11 @@ const Pie = ({ data, count }) => {
               7: { color: '#A3EBB1' },
             },
           }}
+          width="100%"
           rootProps={{ 'data-testid': '1' }}
         />
       </div>
-    </>
+    </Card>
   );
 };
 
