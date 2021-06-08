@@ -23,8 +23,14 @@
 body,
 html {
   font-family: "Montserrat", sans-serif;
-  height: 100%;
   color:var(--accent2)
+}
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
 }
 
 a {

@@ -1,7 +1,6 @@
 .container {
   display: flex;
-  height: 100%;
-  min-height: 100vh;
+  min-height: fit-content;
 }
 
 .childContainer {

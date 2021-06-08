@@ -9,8 +9,9 @@ export const photoReducer = (state = '', { type, payload }) => {
         payload.map((photo) => ({
           ...photo,
           src: photo.image_url,
+          height: +photo.height,
+          width: +photo.width,
         }
-
         ))
       );
     default:

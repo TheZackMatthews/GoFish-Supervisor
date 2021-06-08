@@ -7,6 +7,7 @@ const Percentage = ({
   count,
   total,
   circleColor,
+  suffix,
 }) => (
   <>
     <div
@@ -38,7 +39,7 @@ const Percentage = ({
         textAlign: 'center',
       }}
     >
-      {`${count} out of ${total} ${label.toLowerCase()}`}
+      {`${count} out of ${total} ${label.toLowerCase()} ${suffix}`}
     </div>
   </>
 );
@@ -48,10 +49,12 @@ Percentage.propTypes = {
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   circleColor: PropTypes.string,
+  suffix: PropTypes.string,
 };
 
 Percentage.defaultProps = {
   circleColor: 'lightBlue',
+  suffix: '',
 };
 
 export default Percentage;

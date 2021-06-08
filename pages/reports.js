@@ -32,13 +32,12 @@ const exportTable = (data, title) => {
 const Reports = () => {
   const dispatch = useDispatch();
   const surveys = useSelector((state) => state.reports);
-  const [reportType, setReportType] = useState('');
+  const [reportType, setReportType] = useState('All Surveys');
   const [reportData, setReportData] = useState([]);
   const [showMap, setShowMap] = useState(false);
   const [mapButtonText, setMapButtonText] = useState('Show Map');
   const [divStyle, setDivStyle] = useState({
-    position: 'absolute',
-    width: '70%',
+    width: '90%',
   });
 
   useEffect(() => {
@@ -57,6 +56,11 @@ const Reports = () => {
         setReportData([]);
         break;
       default:
+        if (surveys.allSurveys) {
+          setReportData(surveys.allSurveys);
+        } else {
+          fetchAll();
+        }
     }
   }, [reportType]);
 
@@ -82,6 +86,7 @@ const Reports = () => {
     } else {
       setDivStyle({
         ...divStyle,
+        position: 'absolute',
         height: '70%',
         marginBottom: 30,
       });
@@ -91,15 +96,12 @@ const Reports = () => {
 
   return (
     <>
-      <div>
-        <h1>Welcome to the Go Fish reports.</h1>
-      </div>
       <div className="top">
         <SimpleSelect handleChange={handleDropdownChange} itemValue={reportType} />
-        <form>
+        {/* <form>
           <input id="name" type="text" autoComplete="name" />
           <button type="submit">Search</button>
-        </form>
+        </form> */}
       </div>
       <div>
         <Button

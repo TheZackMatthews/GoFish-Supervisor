@@ -12,32 +12,17 @@ const Photos = () => {
   const [viewerOpen, setViewerOpen] = useState(false);
   const photos = useSelector((state) => state.photos);
   const dispatch = useDispatch();
-  const [photoList, setPhotoList] = useState(null);
-  const [fullPhotoList, setFullPhotoList] = useState(null);
+  const [photoList, setPhotoList] = useState(photos);
+  const [fullPhotoList, setFullPhotoList] = useState(photos);
   const [category, setCategory] = useState('');
 
   useEffect(() => {
     if (!photos || !photos.length) dispatch(getPhotos());
   }, []);
-  console.log(photos);
+
   useEffect(() => {
-    let tempPhotos;
-    if (photos && photos.length) {
-      tempPhotos = photos.map((photo) => {
-        const image = new Image();
-        image.src = photo.src;
-        const { height, width } = image;
-        const ratio = height / width;
-        return {
-          ...photo,
-          width: 1,
-          height: ratio,
-          caption: photo.comment,
-        };
-      });
-    }
-    setPhotoList(tempPhotos);
-    setFullPhotoList(tempPhotos);
+    setPhotoList(() => photos);
+    setFullPhotoList(() => photos);
   }, [photos]);
 
   useEffect(() => {
@@ -61,7 +46,6 @@ const Photos = () => {
     setViewerOpen(false);
   };
 
-  console.log(category);
   return (
     <div>
       <h3>Specimen Photos</h3>
@@ -79,10 +63,10 @@ const Photos = () => {
           </Select>
         </FormControl>
       </div>
-
-      {photoList && photoList.length !== 0 ? (
+      {photoList && photoList.length ? (
         <div style={{ width: '80vw' }}>
           <Gallery
+            id="gallery"
             photos={photoList}
             onClick={openLightbox}
           />
@@ -101,8 +85,7 @@ const Photos = () => {
             ) : null}
           </ModalGateway>
         </div>
-      ) : (<div />)}
-
+      ) : <div />}
     </div>
   );
 };

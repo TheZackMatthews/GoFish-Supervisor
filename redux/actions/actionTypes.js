@@ -1,3 +1,6 @@
+// Daily reports
+export const GET_DAILY_REPORTS = 'GET_DAILY_REPORTS';
+
 // Surveys
 export const FETCH_ALL_SURVEYS = 'FETCH_ALL_SURVEYS';
 
