@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { GET_PHOTOS } from './actionTypes';
 
-const urlGetPhotos = 'https://gofish-api.herokuapp.com/allPhotos';
+const urlGetPhotos = 'https://gofish-api.herokuapp.com/photo';
 
 export const getPhotos = () => (dispatch) => axios
   .get(urlGetPhotos)
