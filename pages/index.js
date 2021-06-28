@@ -10,22 +10,35 @@ import Pie from '../components/charts/pie';
 import Percentage from '../components/charts/percentage';
 import Total from '../components/charts/total';
 import Histogram from '../components/charts/histogram';
+import LogIn from '../components/users/LogIn';
 import { fetchAllSurveys, getAllDaily } from '../redux/actions/reportActions';
 import { getPhotos } from '../redux/actions/photoActions';
+import { getUser } from '../redux/actions/userActions';
 
 const Index = () => {
   const dispatch = useDispatch();
   const reports = useSelector((state) => state.reports.allSurveys);
   const photos = useSelector((state) => state.photos);
+  const user = useSelector((state) => state.user);
   const [fishCount, setFishCount] = useState(0);
   const [picCount, setPicCount] = useState(0);
 
+  console.log(user);
+
   useEffect(() => {
-    if (!reports || !reports.length) {
-      dispatch(fetchAllSurveys());
+    if (!user) {
+      dispatch(getUser());
     }
-    dispatch(getPhotos());
-    dispatch(getAllDaily());
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      if (!reports || !reports.length) {
+        dispatch(fetchAllSurveys());
+      }
+      dispatch(getPhotos());
+      dispatch(getAllDaily());
+    }
   }, []);
 
   useEffect(() => {
@@ -36,15 +49,15 @@ const Index = () => {
       });
       setFishCount(sum);
     }
-  }, [reports]);
+  }, [reports, user]);
 
   useEffect(() => {
     if (photos && photos.length) {
       setPicCount(photos.length);
     }
-  }, [photos]);
+  }, [photos, user]);
 
-  return (
+  return (user ? (
     <Box sx={{ minHeight: '100%', width: '100%' }}>
       <Container maxWidth={false}>
         <Grid container spacing={3}>
@@ -90,17 +103,12 @@ const Index = () => {
               <Pie label="Fish Species" data="fish_species" count="fish_count" />
             </Card>
           </Grid>
-          {/* <Grid item xl={3} lg={3} sm={6} xs={12}>
-          </Grid>
-          <Grid item xl={6} lg={6} sm={12} xs={12}>
-            <Card style={{ height: '100%', padding: 20 }}>Medium box</Card>
-          </Grid>
-          <Grid item xl={3} lg={3} sm={6} xs={12}>
-          </Grid> */}
         </Grid>
       </Container>
     </Box>
-  );
+  ) : (
+    <LogIn />
+  ));
 };
 
 export default Index;

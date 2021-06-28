@@ -9,3 +9,12 @@ export const CREATE_QUESTIONNAIRE = 'CREATE_QUESTIONNAIRE';
 
 // Photos
 export const GET_PHOTOS = 'GET_PHOTOS';
+
+// Users
+export const GET_USER = 'GET_USER';
+export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';
+export const NEW_USER = 'NEW_USER';
+
+// Error
+export const ERROR = 'ERROR';

@@ -13,8 +13,9 @@
   align-items: flex-start;
   height: 100%;
   min-height: 100vh;
-  background-color: var(--primary);
-  color: var(--light);
+  min-width: 150px;
+  background-color: var(--light);
+  color: var(--primary);
   padding:20px;
 }
 
@@ -40,12 +41,12 @@
 }
 
 .navbar li:hover {
-  color: var(--accent);
+  color: var(--dark);
 }
 
 .navbar a {
   text-decoration: none;
   font-weight: 400;
-  color: var(--light);
+  color: var(--primary);
   
 }
