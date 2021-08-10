@@ -71,4 +71,3 @@ export const mountains = [
     point: [42.922808, -122.01624],
   },
 ];
-

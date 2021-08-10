@@ -1,12 +1,10 @@
 .data-table-title {
   text-align: center;
-  /* font-family: arial, sans-serif; */
   padding-bottom: 10px;
 }
 
 .data-table {
   text-align: center;
-  /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
   border-collapse: collapse;
   border: 0px solid #ddd;
   width: 100%;

@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { json2csv } from 'json-2-csv';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllSurveys } from '../redux/actions/reportActions';
 import TableFromJSON from '../components/reports/TableFromJSON';
 import SimpleSelect from '../components/reports/SimpleSelect';
@@ -31,15 +31,23 @@ const exportTable = (data, title) => {
 
 const Reports = () => {
   const dispatch = useDispatch();
-  const [reportType, setReportType] = useState('');
+  const surveys = useSelector((state) => state.reports);
+  const [reportType, setReportType] = useState('All Surveys');
   const [reportData, setReportData] = useState([]);
   const [showMap, setShowMap] = useState(false);
   const [mapButtonText, setMapButtonText] = useState('Show Map');
+  const [divStyle, setDivStyle] = useState({
+    width: '90%',
+  });
 
   useEffect(() => {
     switch (reportType) {
       case 'All Surveys':
-        fetchAll();
+        if (surveys.allSurveys) {
+          setReportData(surveys.allSurveys);
+        } else {
+          fetchAll();
+        }
         break;
       case 'Fish Summary':
         fetchAll();
@@ -48,6 +56,11 @@ const Reports = () => {
         setReportData([]);
         break;
       default:
+        if (surveys.allSurveys) {
+          setReportData(surveys.allSurveys);
+        } else {
+          fetchAll();
+        }
     }
   }, [reportType]);
 
@@ -64,21 +77,31 @@ const Reports = () => {
 
   const toggleMap = () => {
     setShowMap(!showMap);
-    if (showMap) setMapButtonText('Show Map');
-    else setMapButtonText('Hide Map');
+    if (showMap) {
+      setMapButtonText('Show Map');
+      setDivStyle({
+        position: 'absolute',
+        width: '70%',
+      });
+    } else {
+      setDivStyle({
+        ...divStyle,
+        position: 'absolute',
+        height: '70%',
+        marginBottom: 30,
+      });
+      setMapButtonText('Hide Map');
+    }
   };
 
   return (
     <>
-      <div>
-        <h1>Welcome to the Go Fish reports.</h1>
-      </div>
       <div className="top">
         <SimpleSelect handleChange={handleDropdownChange} itemValue={reportType} />
-        <form>
+        {/* <form>
           <input id="name" type="text" autoComplete="name" />
           <button type="submit">Search</button>
-        </form>
+        </form> */}
       </div>
       <div>
         <Button
@@ -95,11 +118,7 @@ const Reports = () => {
           {mapButtonText}
         </Button>
         <div
-          style={{
-            position: 'absolute',
-            width: '70%',
-            height: '600px',
-          }}
+          style={divStyle}
         >
           <DataPointMap data={reportData} show={showMap} />
           <TableFromJSON data={reportData} title={reportType} show={showMap} />

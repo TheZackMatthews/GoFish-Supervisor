@@ -1,0 +1,18 @@
+.dashNav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dashNav ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashNav li {
+  list-style: none;
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-variant-caps: small-caps;
+}

@@ -3,6 +3,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
+next.config.js
 
 # Laravel 4 specific
 bootstrap/compiled.php

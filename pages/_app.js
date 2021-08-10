@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { useStore } from '../redux/store';
 import AuthProvider from '../auth';
@@ -19,3 +20,14 @@ export default function App({ Component, pageProps }) {
     </Provider>
   );
 }
+
+App.propTypes = {
+  Component: PropTypes.func.isRequired,
+  pageProps: PropTypes.shape({
+    initialReduxState: PropTypes.shape({}),
+  }),
+};
+
+App.defaultProps = {
+  pageProps: {},
+};

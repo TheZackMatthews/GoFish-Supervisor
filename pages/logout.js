@@ -1,21 +1,21 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import firebase from 'firebase/app';
-import { firebaseClient } from '../auth/firebaseClient';
-import { useAuth } from '../auth';
-import 'firebase/auth';
+import { Button } from '@material-ui/core';
+import { logOut } from '../redux/actions/userActions';
 
 const Logout = () => {
-  firebaseClient();
   const router = useRouter();
+  const dispatch = useDispatch();
   const [errorM, setErrorM] = useState(null);
-  const { user } = useAuth();
+  const user = useSelector((state) => state.user);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await firebase.auth().signOut();
+      const result = await dispatch(logOut());
+      console.log(result);
+      if (result.type === 'ERROR') throw new Error('Could not log out');
       router.push('/');
     } catch (error) {
       setErrorM(error.message);
@@ -25,20 +25,29 @@ const Logout = () => {
   return (
     <div className="userFormContainer">
       {errorM && <p>{errorM}</p>}
-      <h1>Log out</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: '15px' }}>Log out</h1>
       {user && (
       <p className="center">
         You are currently logged in as
-        {user.email}
-        .
+        {` ${user.email}.`}
       </p>
       )}
-      <a className="btn btn-1" onClick={submitHandler}>
-        <svg>
-          <rect x="0" y="0" fill="none" width="100%" height="100%" />
-        </svg>
-        Sign out
-      </a>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '15px',
+          alignContent: 'center',
+        }}
+      >
+        <Button
+          onClick={submitHandler}
+          variant="contained"
+          color="primary"
+        >
+          Sign Out
+        </Button>
+      </div>
     </div>
   );
 };
